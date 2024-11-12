@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico LGPD - Escolas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: grid;
+            gap: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .intro, .section, .result, .score {
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .score {
+            font-size: 1.2rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-icon {
+            font-size: 1.2rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        canvas {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .diagnosis-text {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .divider {
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        .topic-title {
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* Botões na posição correta */
+        .start-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 40px;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+
+            .score, .result, .diagnosis-text, button {
+                font-size: 0.9rem;
+            }
+
+            button {
+                padding: 8px;
+            }
+
+            input[type="text"] {
+                padding: 8px;
+            }
+        }
+
+        .access-counter {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: #666;
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        /* Tabela para organizar perguntas */
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+
+        table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diagnóstico LGPD para Escolas</h1>
+
+        <!-- Sessão 1: Introdução -->
+        <div class="section active" id="section-1">
+            <p class="intro">
+               
+                Este formulário foi criado para ajudar você a avaliar a conformidade de uma instituição escolar com a Lei Geral de Proteção de Dados Pessoais (LGPD). A LGPD é uma legislação que visa proteger a privacidade e a segurança dos dados de cada cidadão. No contexto escolar, é essencial garantir que os dados dos alunos estejam seguros e sejam tratados de forma responsável.
+                <br><br>
+                Nós respeitamos a sua privacidade. Todas as informações inseridas neste formulário são para sua avaliação pessoal e não são armazenadas em nossos servidores.
+            </p>
+            <div class="start-button">
+                <button type="button" onclick="nextSection()">
+                    Iniciar avaliação <span class="button-icon">▶️</span>
+                </button>
+            </div>
+        </div>
+
+        
+
+
+<!-- Sessão 2: Perguntas -->
+<div class="section" id="section-2">
+    <p><strong>Nome da Escola Avaliada:</strong></p>
+    <input type="text" id="schoolName" placeholder="Digite o nome da escola">
+
+    <div class="divider"></div>
+    <div class="topic-title">Política de Privacidade</div>
+    <table>
+        <tr><td><input type="checkbox" name="question"> A escola possui uma política de privacidade clara e acessível, que explique como os dados dos alunos são coletados, utilizados e protegidos?</td></tr>
+        <tr><td><input type="checkbox" name="question"> A escola coleta apenas os dados estritamente necessários para as atividades educacionais, de acordo com o princípio da minimização de dados?</td></tr>
+    </table>
+
+    <div class="divider"></div>
+    <div class="topic-title">Uso de Imagens e Dados dos Alunos</div>
+    <table>
+        <tr><td><input type="checkbox" name="question"> A escola obtém consentimento específico dos pais para o uso de imagens dos alunos em redes sociais e campanhas publicitárias?</td></tr>
+    </table>
+
+    <div class="divider"></div>
+    <div class="topic-title">Plataformas Terceirizadas</div>
+    <table>
+        <tr><td><input type="checkbox" name="question"> A escola utiliza plataformas de ensino terceirizadas que estão em conformidade com a LGPD e assina contratos de proteção de dados com esses fornecedores?</td></tr>
+    </table>
+
+    <div class="divider"></div>
+    <div class="topic-title">Segurança e Proteção de Dados</div>
+    <table>
+        <tr><td><input type="checkbox" name="question"> A escola adota medidas de segurança, como criptografia e autenticação em duas etapas, para proteger os dados dos alunos?</td></tr>
+        <tr><td><input type="checkbox" name="question"> A escola realiza auditorias de segurança regularmente para garantir a proteção dos sistemas contra ataques e vazamentos?</td></tr>
+        <tr><td><input type="checkbox" name="question"> A escola permite que os pais revisem, corrijam ou solicitem a exclusão dos dados dos alunos quando necessário?</td></tr>
+    </table>
+
+    <div class="divider"></div>
+    <div class="topic-title">Conscientização e Educação Digital</div>
+    <table>
+        <tr><td><input type="checkbox" name="question"> A escola oferece orientações sobre privacidade e segurança digital para alunos, pais e funcionários?</td></tr>
+    </table>
+
+    <div class="divider"></div>
+    <div class="topic-title">Direitos dos Alunos e Famílias</div>
+    <table>
+        <tr><td><input type="checkbox" name="question"> A escola respeita a recusa dos pais quanto ao uso dos dados dos alunos para finalidades secundárias, como marketing?</td></tr>
+    </table>
+
+    <div class="divider"></div>
+    <div class="topic-title">Vazamento de Dados e Plano de Ação</div>
+    <table>
+        <tr><td><input type="checkbox" name="question"> A escola possui um plano de ação para lidar com incidentes de vazamento de dados e comunicar os pais de forma rápida e transparente?</td></tr>
+    </table>
+
+    <div class="navigation-buttons">
+        <button type="button" onclick="previousSection()" class="return-button">
+            <span class="button-icon">◀️</span> Retornar
+        </button>
+        <button type="button" onclick="calculateDiagnosis()">
+            Avançar <span class="button-icon">▶️</span>
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- Sessão 3: Relatório -->
+        <div class="section" id="section-3">
+            <h2 id="analysisTitle" class="diagnosis-text"></h2>
+            <div id="score" class="score"></div>
+            <div class="chart-container">
+                <canvas id="diagnosisChart"></canvas>
+            </div>
+            <div id="result" class="result"></div>
+            
+            <!-- Retorno baseado na correlação da matriz -->
+            <div id="complianceLevel" class="result" style="font-weight: bold; margin-top: 20px; color: #333;"></div>
+
+            <div class="return-button">
+                <button type="button" onclick="previousSection()">
+                    <span class="button-icon">◀️</span> Retornar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="access-counter" id="accessCounter"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script>
+        let currentSection = 1;
+        let diagnosisChart;
+
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach((sec) => {
+                sec.classList.remove('active');
+            });
+            document.getElementById(`section-${section}`).classList.add('active');
+        }
+
+        function nextSection() {
+            if (currentSection < 3) {
+                currentSection++;
+                showSection(currentSection);
+            }
+        }
+
+        function previousSection() {
+            if (currentSection > 1) {
+                currentSection--;
+                showSection(currentSection);
+            }
+        }
+
+        function calculateDiagnosis() {
+            const checkboxes = document.querySelectorAll('input[name="question"]');
+            const totalChecked = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            const totalItems = 10; // Total de questões fixo
+            const schoolName = document.getElementById("schoolName").value;
+
+            const percentage = ((totalChecked / totalItems) * 100).toFixed(2);
+    
+let titleElement = document.getElementById("analysisTitle");
+titleElement.style.fontSize = "1.5em";  // Tamanho semelhante a h2
+titleElement.style.fontWeight = "bold"; // Se necessário para simular o h2
+titleElement.innerText = `Análise da Escola: ${schoolName}`;
+
+
+
+            document.getElementById("score").innerText = `A escola atende ${totalChecked} de ${totalItems} (${percentage}%) critérios de proteção de dados`;
+          
+
+            let complianceText = "";
+
+            if (totalChecked >= 8) {
+                complianceText = "Nível 3 - Alta Conformidade: A escola demonstra um forte compromisso com a proteção de dados e a privacidade dos alunos. Pode ser considerada segura em relação à conformidade com a LGPD. Este nível é ideal para garantir que os dados dos alunos estão bem protegidos.";
+            } else if (totalChecked >= 5) {
+                complianceText = "Nível 2 - Conformidade Moderada: A escola tem algumas medidas de proteção de dados, mas existem áreas que precisam de melhoria. É recomendável discutir com a escola sobre planos para corrigir as lacunas e aumentar a conformidade com a LGPD.";
+            } else {
+                complianceText = "Nível 1 - Baixa Conformidade: A escola apresenta grandes deficiências em relação à proteção de dados e privacidade dos alunos. Requer uma reavaliação cuidadosa e discussões com a direção da escola para garantir que as medidas corretivas sejam implementadas. Se as lacunas não forem corrigidas, considere outras opções de escolas mais seguras.";
+            }
+
+            document.getElementById("complianceLevel").innerText = complianceText;
+
+            nextSection();
+            updateBarChart(totalChecked, totalItems - totalChecked);
+        }
+
+        function updateBarChart(checkedItems, uncheckedItems) {
+            const ctx = document.getElementById("diagnosisChart").getContext("2d");
+
+            if (diagnosisChart) {
+                diagnosisChart.destroy();
+            }
+
+            diagnosisChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Proteção de dados"],
+                    datasets: [
+                        {
+                            label: 'Itens Marcados',
+                            data: [checkedItems],
+                            backgroundColor: "#28a745",
+                            borderColor: "#333",
+                            borderWidth: 1,
+                        },
+                        {
+                            label: 'Itens Pendentes',
+                            data: [uncheckedItems],
+                            backgroundColor: "#dc3545",
+                            borderColor: "#333",
+                            borderWidth: 1,
+                        }
+                    ]
+                },
+                options: {
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true },
+                        datalabels: {
+                            display: true,
+                            color: "#ffffff",
+                            font: { weight: 'bold' },
+                            formatter: (value) => value
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+        }
+
+        function updateAccessCounter() {
+            const accessCounter = document.getElementById("accessCounter");
+            let accesses = localStorage.getItem("accessCount") || 0;
+            accesses++;
+            localStorage.setItem("accessCount", accesses);
+            accessCounter.innerText = `Acessos: ${accesses}`;
+        }
+
+        updateAccessCounter();
+    </script>
+</body>
+</html>
