@@ -201,6 +201,12 @@
             <button type="button" onclick="gerarRelatorio()">Gerar Relatório</button>
         </form>
     </div>
+    
+    
+    
+    
+    
+    
 
     <div class="container" id="relatorioContainer" style="display: none;">
         <h1>PROJETO REDATA - Redação ENEM</h1>
@@ -221,21 +227,26 @@
         </table>
         <br><br>
         
-        <table id="resultados">
+        
+       <table id="resultados">
     <tr>
         <th>Nota total</th>
         <th>Qt. linhas</th>
-        <th>Gráfico de radar</th>
     </tr>
     <tr>
         <td id="notaTotal"></td>
         <td id="qtLinhas"></td>
-        <td>
+    </tr>
+    <tr>
+        <td colspan="2">
             <!-- Define o tamanho do canvas diretamente -->
             <canvas id="radarChart" width="320" height="320"></canvas>
         </td>
     </tr>
 </table>
+
+
+
 
 
         <br><br>
