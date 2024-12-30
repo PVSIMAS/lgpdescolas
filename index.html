@@ -71,17 +71,15 @@
 
         button:hover {
             background-color: #004494;
-            
-            
-            
-       #radarChart {
+
+             #radarChart {
     width: 10cm;
     height: 10cm;
     display: block;
     margin: 0 auto;
     box-sizing: content-box; /* Garante que apenas o conteúdo seja medido */
         }
-            
+
          @media print {
             .container {
                 background-color: #fff;
@@ -224,14 +222,7 @@
         <br>
          <h4 style="text-align: center;"> GOON Edumetrics - contato@sejagoon.com </h4>
 
-        
     </div>
-    
-    
-    
-    
-    
-    
 
     <div class="container" id="relatorioContainer" style="display: none;">
          <h1>Prof Redação - ENEM & Dados</h1>
@@ -253,8 +244,7 @@
             </tr>
         </table>
         <br><br>
-        
-        
+
       <table id="resultados" border="1" cellpadding="8" cellspacing="0" width="100%">
     <tr>
         <th>Nota total</th>
@@ -271,11 +261,6 @@
         </td>
     </tr>
 </table>
-
-
-
-
-
 
         <br><br>
         <table id="competencia1Table">
@@ -374,10 +359,10 @@
             </tr>
         </table>
         <br><br>
-        
+
         <button type="button" onclick="location.reload()">Gerar novo relatório</button>
         <button type="button" onclick="window.print()">Imprimir</button>
-        
+
          <br>
          <h4 style="text-align: center;"> GOON Edumetrics - contato@sejagoon.com </h4>
     </div>
@@ -564,11 +549,19 @@
                         }]
                     },
                     options: {
-                        scale: {
-                            ticks: {
-                                beginAtZero: true,
-                                max: 200,
-                                stepSize: 40
+                        scales: {
+                            r: {
+                                angleLines: {
+                                    display: false
+                                },
+                                suggestedMin: 0,
+                                suggestedMax: 200,
+                                ticks: {
+                                    stepSize: 40,
+                                    callback: function(value) {
+                                        return value;
+                                    }
+                                }
                             }
                         }
                     }
